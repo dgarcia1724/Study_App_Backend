@@ -19,6 +19,10 @@ public class FolderService {
         return folderRepository.findAll();
     }
 
+    public List<Folder> getFoldersByPrefix(String prefix) {
+        return folderRepository.findByNameStartingWith(prefix);
+    }
+
     public Folder getFolderById(Long id) {
         return folderRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Folder not found"));

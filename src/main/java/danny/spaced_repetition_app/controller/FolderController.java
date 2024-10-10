@@ -18,6 +18,20 @@ public class FolderController {
     @Autowired
     private FolderService folderService;
 
+    // Search folders by prefix
+    @GetMapping("/search")
+    public ResponseEntity<List<Folder>> searchFolders(@RequestParam(value = "prefix", required = false) String prefix) {
+        List<Folder> folders;
+
+        if (prefix == null || prefix.isEmpty()) {
+            folders = folderService.getAllFolders(); // Return all folders if no prefix is provided
+        } else {
+            folders = folderService.getFoldersByPrefix(prefix); // Return folders matching the prefix
+        }
+
+        return ResponseEntity.ok(folders);
+    }
+    
     @GetMapping
     public List<Folder> getAllFolders() {
         return folderService.getAllFolders();
