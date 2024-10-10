@@ -23,6 +23,14 @@ public class FolderService {
         return folderRepository.findByNameStartingWith(prefix);
     }
 
+    public List<Folder> getFoldersOrderedByNameAsc() {
+        return folderRepository.findAllOrderByNameAsc();
+    }
+
+    public List<Folder> getFoldersOrderedByNameDesc() {
+        return folderRepository.findAllOrderByNameDesc();
+    }
+
     public Folder getFolderById(Long id) {
         return folderRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Folder not found"));
@@ -45,5 +53,3 @@ public class FolderService {
         folderRepository.delete(folder);
     }
 }
-
-

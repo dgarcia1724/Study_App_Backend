@@ -1,6 +1,5 @@
 package danny.spaced_repetition_app.controller;
 
-
 import danny.spaced_repetition_app.entity.Folder;
 import danny.spaced_repetition_app.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,33 +30,52 @@ public class FolderController {
 
         return ResponseEntity.ok(folders);
     }
-    
+
+    // Get all folders
     @GetMapping
     public List<Folder> getAllFolders() {
         return folderService.getAllFolders();
     }
 
+    // Get a folder by ID
     @GetMapping("/{id}")
     public ResponseEntity<Folder> getFolderById(@PathVariable Long id) {
         Folder folder = folderService.getFolderById(id);
         return ResponseEntity.ok(folder);
     }
 
+    // Create a new folder
     @PostMapping
     public ResponseEntity<Folder> createFolder(@RequestBody Folder folder) {
         Folder savedFolder = folderService.createFolder(folder);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedFolder);
     }
 
+    // Update an existing folder
     @PutMapping("/{id}")
     public ResponseEntity<Folder> updateFolder(@PathVariable Long id, @RequestBody Folder folderDetails) {
         Folder updatedFolder = folderService.updateFolder(id, folderDetails);
         return ResponseEntity.ok(updatedFolder);
     }
 
+    // Delete a folder
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteFolder(@PathVariable Long id) {
         folderService.deleteFolder(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Get folders ordered by title A-Z
+    @GetMapping("/sort/asc")
+    public ResponseEntity<List<Folder>> getFoldersOrderedByNameAsc() {
+        List<Folder> folders = folderService.getFoldersOrderedByNameAsc();
+        return ResponseEntity.ok(folders);
+    }
+
+    // Get folders ordered by title Z-A
+    @GetMapping("/sort/desc")
+    public ResponseEntity<List<Folder>> getFoldersOrderedByNameDesc() {
+        List<Folder> folders = folderService.getFoldersOrderedByNameDesc();
+        return ResponseEntity.ok(folders);
     }
 }
