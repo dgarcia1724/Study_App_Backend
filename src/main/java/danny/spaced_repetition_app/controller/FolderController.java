@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/folders")
+@CrossOrigin(origins = "*") // Allow all origins
 public class FolderController {
 
     @Autowired

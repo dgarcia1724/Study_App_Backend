@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/lists")
+@CrossOrigin(origins = "*") // Allow all origins
 public class ListController {
 
     @Autowired
