@@ -50,4 +50,20 @@ public class ListService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "List not found"));
         listRepository.delete(list);
     }
+
+        // New method for searching lists by name prefix within a specific folder
+    public List<ListEntity> searchListsByNameAndFolder(Long folderId, String prefix) {
+        return listRepository.findByNameStartingWithAndFolderId(folderId, prefix);
+    }
+
+    // New method for sorting lists A-Z within a specific folder
+    public List<ListEntity> getListsSortedByNameAsc(Long folderId) {
+        return listRepository.findAllOrderByNameAscAndFolderId(folderId);
+    }
+
+    // New method for sorting lists Z-A within a specific folder
+    public List<ListEntity> getListsSortedByNameDesc(Long folderId) {
+        return listRepository.findAllOrderByNameDescAndFolderId(folderId);
+    }
+
 }

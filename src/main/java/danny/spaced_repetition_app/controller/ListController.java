@@ -45,4 +45,25 @@ public class ListController {
         listService.deleteList(id);
         return ResponseEntity.noContent().build();
     }
+
+        // New endpoint for searching lists by name prefix within a specific folder
+    @GetMapping("/folder/{folderId}/search")
+    public ResponseEntity<List<ListEntity>> searchListsByFolder(@PathVariable Long folderId, @RequestParam String prefix) {
+        List<ListEntity> lists = listService.searchListsByNameAndFolder(folderId, prefix);
+        return ResponseEntity.ok(lists);
+    }
+
+    // New endpoint for sorting lists A-Z within a specific folder
+    @GetMapping("/folder/{folderId}/sort/asc")
+    public ResponseEntity<List<ListEntity>> getListsSortedByNameAsc(@PathVariable Long folderId) {
+        List<ListEntity> sortedLists = listService.getListsSortedByNameAsc(folderId);
+        return ResponseEntity.ok(sortedLists);
+    }
+
+    // New endpoint for sorting lists Z-A within a specific folder
+    @GetMapping("/folder/{folderId}/sort/desc")
+    public ResponseEntity<List<ListEntity>> getListsSortedByNameDesc(@PathVariable Long folderId) {
+        List<ListEntity> sortedLists = listService.getListsSortedByNameDesc(folderId);
+        return ResponseEntity.ok(sortedLists);
+    }
 }
