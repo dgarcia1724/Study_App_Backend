@@ -3,8 +3,6 @@ package danny.spaced_repetition_app.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-
-
 @Entity
 public class Problem {
     @Id
@@ -13,6 +11,8 @@ public class Problem {
 
     private String name;
     private int confidence;
+    
+    private String link; // New field for storing link
 
     @JsonIgnore
     @ManyToOne
@@ -43,6 +43,14 @@ public class Problem {
 
     public void setConfidence(int confidence) {
         this.confidence = confidence;
+    }
+
+    public String getLink() {
+        return link; // Getter for link
+    }
+
+    public void setLink(String link) {
+        this.link = link; // Setter for link
     }
 
     public ListEntity getList() {

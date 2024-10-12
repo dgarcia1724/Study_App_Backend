@@ -35,6 +35,10 @@ public class ProblemService {
         ListEntity list = listRepository.findById(listId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "List not found"));
         problem.setList(list);
+        // Set the link field while creating a new problem
+        if (problem.getLink() != null) {
+            problem.setLink(problem.getLink());
+        }
         return problemRepository.save(problem);
     }
 
@@ -43,12 +47,12 @@ public class ProblemService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Problem not found"));
 
         problem.setName(problemDetails.getName());
-        // Removed: problem.setNotes(problemDetails.getNotes());
+        problem.setConfidence(problemDetails.getConfidence());
+        // Set the link field while updating an existing problem
+        problem.setLink(problemDetails.getLink());
 
         return problemRepository.save(problem);
     }
-
-    // Remove updateLastAttempted method
 
     public void deleteProblem(Long id) {
         Problem problem = problemRepository.findById(id)
@@ -56,5 +60,6 @@ public class ProblemService {
         problemRepository.delete(problem);
     }
 }
+
 
 
