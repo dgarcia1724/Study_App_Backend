@@ -20,10 +20,11 @@ public class ProblemService {
     @Autowired
     private ListRepository listRepository;
 
+    // Fetch problems by listId and order them by confidence
     public List<Problem> getProblemsByListId(Long listId) {
-        ListEntity list = listRepository.findById(listId)
+        listRepository.findById(listId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "List not found"));
-        return list.getProblems();
+        return problemRepository.findByListIdOrderByConfidenceAsc(listId);
     }
 
     public Problem getProblemById(Long id) {
